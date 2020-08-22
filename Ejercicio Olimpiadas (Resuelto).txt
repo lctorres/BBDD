@@ -1,0 +1,154 @@
+SELECT *
+FROM complejodeportivo;
+
+--Que equipamiento utiliza un centro deportivo para todos los eventos que ha realizaron?
+SELECT complejodeportivo.nombre, equipamiento.nombreequipamiento
+FROM complejodeportivo 
+     inner join area on(complejoDeportivo.idcomplejo = 
+            area.complejoDeportivo_idComplejo)
+     inner join eventos on (area.idArea = eventos.area_idArea)
+     inner join Relation_9 on (eventos.idEventos = Relation_9.eventos_idEventos)
+     inner join deporte on (Relation_9.deporte_idDeporte = deporte.idDeporte)
+     inner join equipato on (deporte.idDeporte = equipamiento.deporte_idDeporte)
+group by complejodeportivo.nombre, equipamiento.nombreequipamiento;
+
+select * from Relation_9;
+     
+--Que comisarios trabajaron en cierta fecha, en una determinada sede?     
+SELECT sedeOlimpica.nombreSede, eventos.fecha, comisario.nombreComisario
+FROM sedeOlimpica
+    inner join complejoDeportivo on(sedeOlimpica.idSede = 
+            complejoDeportivo.IdComplejo)
+     inner join area on(complejoDeportivo.idcomplejo = 
+            area.complejoDeportivo_idComplejo)
+     inner join eventos on (area.idArea = eventos.area_idArea)
+     inner join Rol on (eventos.idEventos = Rol.eventos_idEventos)
+     inner join comisario on (Rol.comisario_idComisario = comisario.idComisario)
+  
+group by sedeOlimpica.nombreSede, eventos.fecha, comisario.nombreComisario;
+
+select * from Rol;   
+
+INSERT INTO rol (comisario_idcomisario,eventos_ideventos,roljuez) 
+values (1,1,'S'); 
+
+INSERT INTO rol (comisario_idcomisario,eventos_ideventos,roljuez) 
+values (2,2,'S'); 
+
+INSERT INTO rol (comisario_idcomisario,eventos_ideventos,roljuez) 
+values (3,3,'N'); 
+
+INSERT INTO rol (comisario_idcomisario,eventos_ideventos,roljuez) 
+values (4,4,'S'); 
+
+select * from Relation_9;     
+     
+     
+INSERT INTO Relation_9 (eventos_ideventos,deporte_iddeporte) 
+values (1,1);   
+
+INSERT INTO Relation_9 (eventos_ideventos,deporte_iddeporte) 
+values (2,2);  
+
+INSERT INTO Relation_9 (eventos_ideventos,deporte_iddeporte) 
+values (3,3);  
+
+INSERT INTO Relation_9 (eventos_ideventos,deporte_iddeporte) 
+values (4,4);  
+
+
+
+
+delete from equipamiento where idequipamiento = 7;
+
+INSERT INTO equipamiento (idequipamiento,nombreequipamiento,deporte_iddeporte,cantidad) 
+values (8, 'Valla', 4, 20);
+
+INSERT INTO equipamiento (idequipamiento,nombreequipamiento,deporte_iddeporte,cantidad) 
+values (7, 'Pistola', 4, 2);
+
+INSERT INTO equipamiento (idequipamiento,nombreequipamiento,deporte_iddeporte,cantidad) 
+values (6, 'Chicharra', 3, 2);
+
+INSERT INTO equipamiento (idequipamiento,nombreequipamiento,deporte_iddeporte,cantidad) 
+values (4, 'Cuerdas', 2, 10);
+
+INSERT INTO equipamiento (idequipamiento,nombreequipamiento,deporte_iddeporte,cantidad) 
+values (3, 'boyas', 2, 100);
+
+INSERT INTO equipamiento (idequipamiento,nombreequipamiento,deporte_iddeporte,cantidad) 
+values (2, 'Banderines', 1, 8);
+
+delete from equipamiento where idequipamiento = 1 ;
+
+INSERT INTO deporte (iddeporte,nombredeporte) 
+values (1, 'Futbol');
+
+INSERT INTO deporte (iddeporte,nombredeporte) 
+values (2, 'Natacion');
+
+INSERT INTO deporte (iddeporte,nombredeporte) 
+values (3, 'Patinaje');
+
+INSERT INTO deporte (iddeporte,nombredeporte) 
+values (4, 'Carreras');
+
+--FALTA INSERTAR EQUIPAMIENTO Y DEPORTE
+
+INSERT INTO comisario (idcomisario, nombrecomisario) 
+values (1, 'juan perez');
+
+INSERT INTO comisario (idcomisario, nombrecomisario) 
+values (2, 'pedro escamoso');
+
+INSERT INTO comisario (idcomisario, nombrecomisario) 
+values (3, 'diego maradroga');
+
+INSERT INTO comisario (idcomisario, nombrecomisario) 
+values (4, 'carlitos teves');
+
+INSERT INTO eventos (ideventos,descripcionevento,fecha,duracion,cantidadparticipantes,area_idarea) 
+values (1, 'Partido Grupo A', '04/04/2019', 120, 36, 1);
+
+INSERT INTO eventos (ideventos,descripcionevento,fecha,duracion,cantidadparticipantes,area_idarea) 
+values (2, 'salto ornamental', '05/04/2019', 100, 16, 2);
+
+INSERT INTO eventos (ideventos,descripcionevento,fecha,duracion,cantidadparticipantes,area_idarea) 
+values (3, 'posta 4x400', '04/04/2019', 60, 50, 3);
+
+INSERT INTO eventos (ideventos,descripcionevento,fecha,duracion,cantidadparticipantes,area_idarea) 
+values (4, '100 metros planos', '04/04/2019', 100, 80, 4);
+
+
+INSERT INTO area (idarea, descripcionarea, localizacion, complejodeportivo_idcomplejo) 
+values (1, 'cancha futbol', 'centro', 1);
+
+INSERT INTO area (idarea, descripcionarea, localizacion, complejodeportivo_idcomplejo) 
+values (2, 'piscina', 'norte', 2);
+
+INSERT INTO area (idarea, descripcionarea, localizacion, complejodeportivo_idcomplejo) 
+values (3, 'pista patinaje', 'centro', 3);
+
+INSERT INTO area (idarea, descripcionarea, localizacion, complejodeportivo_idcomplejo) 
+values (4, 'pista atletica', 'centro', 4);
+
+
+
+-- usando opcion delete o borrar registro
+delete from complejodeportivo where idcomplejo = 3 ;
+--
+INSERT INTO complejodeportivo (idcomplejo, nombre,localizacion,jefeorganizacion,areatotal,sedeolimpica_idsede,presupuesto  )
+values (1, 'Estadio Nacional', 'nunoa', 'Luis Torres', 100000, 1, 100);
+
+INSERT INTO complejodeportivo (idcomplejo, nombre,localizacion,jefeorganizacion,areatotal,sedeolimpica_idsede,presupuesto  )
+values (2, 'CAR', 'nunoa', 'Cristian Alvarado', 10000, 1, 50);
+
+INSERT INTO complejodeportivo (idcomplejo, nombre,localizacion,jefeorganizacion,areatotal,sedeolimpica_idsede,presupuesto  )
+values (3, 'Parque Ohiggins', 'Santiago', 'Luis Riffo', 10000, 1, 60);
+
+INSERT INTO complejodeportivo (idcomplejo, nombre,localizacion,jefeorganizacion,areatotal,sedeolimpica_idsede,presupuesto  )
+values (4, 'Sausalito', 'Viña', 'Leonardo Zunica', 100000, 2, 200);
+
+INSERT INTO sedeolimpica (idsede , nombresede)
+values (2, 'Viña del Mar');
+

@@ -1,0 +1,78 @@
+select customer_id, cust_first_name, cust_last_name 
+from demo_customers 
+where cust_city = 'Atlanta';
+
+select min(quantity) from demo_order_items;
+--where product_id = 1;
+
+select sum(quantity)
+from DEMO_ORDER_ITEMS
+where product_id = 1;
+
+select *
+from demo_states
+where state_name = 'ARIZONA';
+
+select *
+from demos_states;
+
+select count(*)
+from demo_customers
+where cust_state = 'GA';
+
+select product_name, sum(quantity)
+from demo_order_items inner join demo_product_info using (product_id)
+group by product_name
+order by sum(quantity)desc;
+
+--Escribe un Select que sume la cantidad de productos vendidos por categoria
+select category, sum(quantity)
+from demo_order_items inner join demo_product_info using (product_id)
+group by category;
+
+--Construya una consulta SELECT que indique cuantas ordenes han cursado cada uo de los usuarios (DEMO USER).
+select user_name, count(order_id)
+from demo_users left join demo_orders using (user_id)
+group by user_name;
+
+--Construya una consulta SELECT que indique las ventas de cada producto
+select product_name, sum(quantity), sum(unit_price * quantity) as "Ventas"
+from demo_order_items inner join demo_product_info using (product_id)
+group by product_name
+order by "Ventas"desc;
+
+--Construya una consulta SELECT que indique las ventas por STATE.
+select demo_states.state_name, sum(unit_price * quantity) as "Ventas"
+from demo_order_items 
+     inner join demo_orders on (demo_order_items.order_id = demo_orders.order_id)
+     inner join demo_customers on (demo_orders.customer_id = demo_customers.customer_id)
+     inner join demo_states on (demo_customers.cust_state = demo_states.st)
+group by demo_states.state_name
+order by "Ventas"desc;
+
+--select cust_state, sum(quantity*unit_price) as total
+--from demo_customers 
+--     inner join demo_orders using (customer_id) 
+--     inner join demo_order_items using (order_id)
+--group by cust_state
+--order by total desc;
+
+insert into demo_customers (customer_id, cust_first_name, cust_last_name, cust_street_address1, cust_city, cust_state, phone_number1, credit_limit, cust_email)
+values (40, 'Teniente', 'Cavieres', 'En tu casa', 'Belencilandia', 'RR', '555', 3000, 'hombreardiente@hotmail.com');
+
+update demo_customers set cust_first_name = 'Francisco', cust_last_name = 'Rodriguez'
+where customer_id = 41;
+
+update demo_customers set cust_street_address1 = 'Av. Apruebo 2604'
+where customer_id = 41;
+
+delete from demo_customers where customer_id = 41;
+
+select *
+from demo_customers;
+
+insert into demo_orders
+values (40, 7, 500, '03/03/20', 2);
+
+select *
+from demo_orders;
